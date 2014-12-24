@@ -34,18 +34,23 @@ public class Screen extends JPanel{
         {
             for (int j=0; j < board.getColumnsCount(); j++)
             {
-                java.util.List<Unit> expendableUnits = board.getBoardMatrix()[i][j].getExpendableUnits();
-                if (expendableUnits != null && expendableUnits.size() != 0)
+                java.util.List<Unit> obstacleUnits = board.getBoardMatrix()[i][j].getObstacleUnits();
+                if (obstacleUnits != null && obstacleUnits.size() != 0)
                 {
                     g.setColor(Color.BLUE);
                     g.fillRect(j * 10, i * 10, 10, 10);
                 }
                 else {
                     List<Unit> playableUnits = board.getBoardMatrix()[i][j].getPlayableUnits();
-                    if (playableUnits != null && playableUnits.size() != 0)
-                    {
+                    if (playableUnits != null && playableUnits.size() != 0) {
                         g.setColor(Color.YELLOW);
-                        g.fillOval(j*10, i*10, 10, 10);
+                        g.fillOval(j * 10, i * 10, 10, 10);
+                    } else {
+                        java.util.List<Unit> expendableUnits = board.getBoardMatrix()[i][j].getExpendableUnits();
+                        if (expendableUnits != null && expendableUnits.size() != 0) {
+                            g.setColor(Color.CYAN);
+                            g.fillRect(j * 10, i * 10, 10, 10);
+                        }
                     }
                 }
             }

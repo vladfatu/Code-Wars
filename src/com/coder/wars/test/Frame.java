@@ -36,4 +36,9 @@ public class Frame extends JFrame {
         setVisible(true);
     }
 
+    public void update()
+    {
+        this.screen.repaint();
+    }
+
 }

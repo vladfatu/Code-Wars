@@ -1,6 +1,7 @@
 package com.coder.wars.engine.board;
 
 import com.coder.wars.engine.units.ExpendableUnit;
+import com.coder.wars.engine.units.ObstacleUnit;
 import com.coder.wars.engine.units.PlayableUnit;
 import com.coder.wars.engine.units.Unit;
 
@@ -58,5 +59,22 @@ public class Tile {
             }
         }
         return playableUnits;
+    }
+
+    public List<Unit> getObstacleUnits()
+    {
+        if (this.units == null)
+        {
+            return null;
+        }
+        List<Unit> obstacleUnits = new ArrayList<Unit>();
+        for (Unit unit : this.units)
+        {
+            if (unit instanceof ObstacleUnit)
+            {
+                obstacleUnits.add(unit);
+            }
+        }
+        return obstacleUnits;
     }
 }

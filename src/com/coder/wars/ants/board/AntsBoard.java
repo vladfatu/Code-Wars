@@ -4,6 +4,7 @@ import com.coder.wars.engine.board.Board;
 import com.coder.wars.engine.board.Point;
 import com.coder.wars.engine.board.Tile;
 import com.coder.wars.engine.units.ExpendableUnit;
+import com.coder.wars.engine.units.ObstacleUnit;
 import com.coder.wars.engine.units.PlayableUnit;
 
 import java.io.BufferedReader;
@@ -56,7 +57,7 @@ public class AntsBoard extends Board {
                     this.boardMatrix[row][i] = tile;
                     if (currentLine.charAt(i) == '%')
                     {
-                        tile.addUnit(new ExpendableUnit(0, new Point(i, row), 1));
+                        tile.addUnit(new ObstacleUnit(0, new Point(i, row)));
                     }
                     else if (currentLine.charAt(i) == '0' || currentLine.charAt(i) == '1')
                     {

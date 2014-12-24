@@ -1,5 +1,6 @@
 package com.coder.wars.ants.phase;
 
+import com.coder.wars.engine.game.Game;
 import com.coder.wars.engine.phase.Phase;
 
 /**
@@ -8,7 +9,7 @@ import com.coder.wars.engine.phase.Phase;
 public class MovePhase implements Phase {
 
     @Override
-    public void executePhase() {
+    public void executePhase(Game game) {
 
     }
 }
