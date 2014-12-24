@@ -1,5 +1,7 @@
 package com.coder.wars.test;
 
+import com.coder.wars.ants.board.AntsBoard;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,11 +11,13 @@ import java.awt.*;
 public class Frame extends JFrame {
 
     private Screen screen;
+    private AntsBoard board;
 
-    public Frame()
+    public Frame(AntsBoard board)
     {
+        this.board = board;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 800);
+        setSize(board.getColumnsCount() * 10, board.getRowsCount() * 10);
         setTitle("Code Wars");
         setResizable(false);
 
@@ -26,7 +30,7 @@ public class Frame extends JFrame {
 
         setLayout(new GridLayout(1, 1, 0, 0));
 
-        screen = new Screen();
+        screen = new Screen(this.board);
         add(screen);
 
         setVisible(true);
