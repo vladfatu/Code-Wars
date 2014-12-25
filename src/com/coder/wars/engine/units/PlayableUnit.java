@@ -12,9 +12,10 @@ public class PlayableUnit extends Unit{
     private List<Order> orders;
     private int playerId;
 
-    public PlayableUnit(int unitId, Point position)
+    public PlayableUnit(int unitId, int playerId, Point position)
     {
         super(unitId, position);
+        this.playerId = playerId;
     }
 
     public void executeOrders()

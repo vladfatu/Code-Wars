@@ -1,13 +1,20 @@
 package com.coder.wars.ants.game;
 
+import com.coder.wars.ants.board.AntsBoard;
+import com.coder.wars.ants.players.AntsPlayer;
 import com.coder.wars.ants.round.AntsRound;
+import com.coder.wars.ants.units.HiveUnit;
+import com.coder.wars.engine.board.Board;
 import com.coder.wars.engine.game.Game;
+import com.coder.wars.engine.players.Player;
 import com.coder.wars.engine.round.Round;
+
+import java.util.List;
 
 /**
  * Created by vlad on 24.12.2014.
  */
-public abstract class AntsGame extends Game {
+public class AntsGame extends Game {
 
     public AntsGame()
     {
@@ -30,5 +37,21 @@ public abstract class AntsGame extends Game {
             this.onRoundFinished();
         }
         System.out.println("Game Finished");
+    }
+
+    @Override
+    public void setBoard(Board board)
+    {
+        this.board = board;
+        for (int i=0; i < board.getPlayerCount(); i++)
+        {
+            Player player = new AntsPlayer(i);
+            this.players.add(player);
+        }
+        List<HiveUnit> hives = ((AntsBoard) board).getHives();
+        for (HiveUnit hive : hives)
+        {
+            ((AntsPlayer)getPlayer(hive.getPlayerId())).getHives().add(hive);
+        }
     }
 }

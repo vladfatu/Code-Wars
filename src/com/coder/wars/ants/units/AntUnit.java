@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class AntUnit extends PlayableUnit{
 
-    public AntUnit(int unitId, Point position) {
-        super(unitId, position);
+    public AntUnit(int unitId, int playerId, Point position) {
+        super(unitId, playerId, position);
     }
 
     public void setOrder(Order order)
