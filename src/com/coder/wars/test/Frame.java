@@ -13,12 +13,14 @@ public class Frame extends JFrame {
 
     private Screen screen;
     private AntsGame game;
+    private int unitSize;
 
     public Frame(AntsGame game)
     {
         this.game = game;
+        this.unitSize = 8;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(game.getBoard().getColumnsCount() * 10, game.getBoard().getRowsCount() * 10);
+        setSize(game.getBoard().getColumnsCount() * unitSize, game.getBoard().getRowsCount() * unitSize);
         setTitle("Code Wars");
         setResizable(false);
 
@@ -31,7 +33,7 @@ public class Frame extends JFrame {
 
         setLayout(new GridLayout(1, 1, 0, 0));
 
-        screen = new Screen(this.game);
+        screen = new Screen(this.game, unitSize);
         add(screen);
 
         setVisible(true);

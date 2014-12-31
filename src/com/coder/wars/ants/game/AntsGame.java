@@ -24,6 +24,11 @@ public class AntsGame extends Game {
     @Override
     public void startGame()
     {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (int i=0; i<this.roundCount; i++)
         {
             System.out.println("Round " + i + " started!");

@@ -1,5 +1,6 @@
 package com.coder.wars.ants.board;
 
+import com.coder.wars.ants.units.AntUnit;
 import com.coder.wars.ants.units.HiveUnit;
 import com.coder.wars.engine.board.Board;
 import com.coder.wars.engine.board.Point;
@@ -7,6 +8,7 @@ import com.coder.wars.engine.board.Tile;
 import com.coder.wars.engine.units.ExpendableUnit;
 import com.coder.wars.engine.units.ObstacleUnit;
 import com.coder.wars.engine.units.PlayableUnit;
+import com.coder.wars.engine.units.Unit;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,11 +69,11 @@ public class AntsBoard extends Board {
                     this.boardMatrix[row][i] = tile;
                     if (currentLine.charAt(i) == '%')
                     {
-                        tile.addUnit(new ObstacleUnit(0, new Point(i, row)));
+                        tile.addUnit(new ObstacleUnit(0, new Point(row, i)));
                     }
                     else if (currentLine.charAt(i) != '.')
                     {
-                        HiveUnit hiveUnit = new HiveUnit(0, Character.getNumericValue(currentLine.charAt(i)), new Point(i, row));
+                        HiveUnit hiveUnit = new HiveUnit(0, Character.getNumericValue(currentLine.charAt(i)), new Point(row, i));
                         tile.addUnit(hiveUnit);
                         this.hives.add(hiveUnit);
                     }
@@ -93,6 +95,23 @@ public class AntsBoard extends Board {
             }
         }
 
+    }
+
+    public AntUnit getAntUnit(Point point)
+    {
+        AntUnit antUnit = null;
+        List<Unit> playableUnits = getBoardMatrix()[point.getRow()][point.getColumn()].getPlayableUnits();
+        if (playableUnits != null && playableUnits.size() != 0)
+        {
+            for (Unit unit : playableUnits)
+            {
+                if (unit instanceof AntUnit)
+                {
+                    antUnit = (AntUnit)unit;
+                }
+            }
+        }
+        return antUnit;
     }
 
     public List<HiveUnit> getHives()

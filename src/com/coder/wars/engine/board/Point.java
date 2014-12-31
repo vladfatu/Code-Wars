@@ -5,27 +5,27 @@ package com.coder.wars.engine.board;
  */
 public class Point {
 
-    private int x;
-    private int y;
+    private int column;
+    private int row;
 
-    public Point(int x, int y)
+    public Point(int row, int column)
     {
-        this.x = x;
-        this.y = y;
+        this.column = column;
+        this.row = row;
     }
 
-    public int getX() {
-        return x;
+    public int getColumn() {
+        return column;
     }
 
-    public int getY() {
-        return y;
+    public int getRow() {
+        return row;
     }
 
     @Override
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer("Point");
-        stringBuffer.append('(').append(this.x).append(", ").append(this.y).append(')');
+        stringBuffer.append('(').append(this.column).append(", ").append(this.row).append(')');
         return stringBuffer.toString();
     }
 }

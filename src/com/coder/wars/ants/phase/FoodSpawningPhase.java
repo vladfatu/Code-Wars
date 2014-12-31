@@ -23,7 +23,7 @@ public class FoodSpawningPhase implements Phase {
             int column = r.nextInt(game.getBoard().getColumnsCount());
             int row = r.nextInt(game.getBoard().getRowsCount());
 
-            game.getBoard().getBoardMatrix()[row][column].addUnit(new ExpendableUnit(0, new Point(column, row), 1));
+            game.getBoard().getBoardMatrix()[row][column].addUnit(new ExpendableUnit(0, new Point(row, column), 1));
         }
 
     }

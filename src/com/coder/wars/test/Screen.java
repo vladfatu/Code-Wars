@@ -1,14 +1,12 @@
 package com.coder.wars.test;
 
-import com.coder.wars.ants.board.AntsBoard;
 import com.coder.wars.ants.game.AntsGame;
+import com.coder.wars.ants.units.AntUnit;
 import com.coder.wars.ants.units.HiveUnit;
-import com.coder.wars.engine.units.PlayableUnit;
 import com.coder.wars.engine.units.Unit;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
 
 /**
@@ -17,10 +15,15 @@ import java.util.List;
 public class Screen extends JPanel{
 
     private AntsGame game;
+    private int unitSize;
+    private Image image;
 
-    public Screen(AntsGame game)
+    public Screen(AntsGame game, int scale)
     {
         this.game = game;
+        this.unitSize = scale;
+        image = Toolkit.getDefaultToolkit().getImage("res/hive_open.png");
+        image = image.getScaledInstance(unitSize * 4, unitSize * 4, 0);
         repaint();
     }
 
@@ -31,7 +34,7 @@ public class Screen extends JPanel{
         long timestamp = System.currentTimeMillis();
 
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, game.getBoard().getColumnsCount() * 10, game.getBoard().getRowsCount() * 10);
+        g.fillRect(0, 0, game.getBoard().getColumnsCount() * unitSize, game.getBoard().getRowsCount() * unitSize);
 
         for (int i=0; i < game.getBoard().getRowsCount(); i++)
         {
@@ -41,7 +44,7 @@ public class Screen extends JPanel{
                 if (obstacleUnits != null && obstacleUnits.size() != 0)
                 {
                     g.setColor(Color.BLUE);
-                    g.fillRect(j * 10, i * 10, 10, 10);
+                    g.fillRect(j * unitSize, i * unitSize, unitSize, unitSize);
                 }
                 else {
                     List<Unit> playableUnits = game.getBoard().getBoardMatrix()[i][j].getPlayableUnits();
@@ -57,33 +60,38 @@ public class Screen extends JPanel{
                         }
                         if (hiveUnit != null)
                         {
-                            Image image = Toolkit.getDefaultToolkit().getImage("res/hive.png");
-                            g.drawImage(image, j * 10, i * 10, this);
+                            g.drawImage(image, j * unitSize  - (image.getWidth(this)/2) + (unitSize/2), i * unitSize - (image.getHeight(this)/2) + (unitSize/2), this);
                         }
-                        switch (hiveUnit.getPlayerId())
+                        AntUnit antUnit = null;
+                        for (Unit unit : playableUnits)
                         {
-                            case 0:
+                            if (unit instanceof AntUnit)
                             {
-                                g.setColor(Color.YELLOW);
-                                break;
-                            }
-                            case 1:
-                            {
-                                g.setColor(Color.RED);
-                                break;
-                            }
-                            default:
-                            {
-                                g.setColor(Color.YELLOW);
-                                break;
+                                antUnit = (AntUnit)unit;
                             }
                         }
-                        g.fillOval(j * 10, i * 10, 10, 10);
+                        if (antUnit != null) {
+                            switch (antUnit.getPlayerId()) {
+                                case 0: {
+                                    g.setColor(Color.YELLOW);
+                                    break;
+                                }
+                                case 1: {
+                                    g.setColor(Color.RED);
+                                    break;
+                                }
+                                default: {
+                                    g.setColor(Color.YELLOW);
+                                    break;
+                                }
+                            }
+                            g.fillOval(j * unitSize, i * unitSize, unitSize, unitSize);
+                        }
                     } else {
                         java.util.List<Unit> expendableUnits = game.getBoard().getBoardMatrix()[i][j].getExpendableUnits();
                         if (expendableUnits != null && expendableUnits.size() != 0) {
-                            g.setColor(Color.CYAN);
-                            g.fillRect(j * 10, i * 10, 10, 10);
+                            g.setColor(Color.DARK_GRAY);
+                            g.fillRect(j * unitSize, i * unitSize, unitSize, unitSize);
                         }
                     }
                 }
