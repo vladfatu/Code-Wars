@@ -1,5 +1,6 @@
 package com.coder.wars.ants.game;
 
+import com.coder.wars.ants.ai.AntsAi;
 import com.coder.wars.ants.board.AntsBoard;
 import com.coder.wars.ants.players.AntsPlayer;
 import com.coder.wars.ants.round.AntsRound;
@@ -16,9 +17,12 @@ import java.util.List;
  */
 public class AntsGame extends Game {
 
-    public AntsGame()
+    private List<AntsAi> antsAiList;
+
+    public AntsGame(List<AntsAi> antsAiList)
     {
         this.roundCount = 100;
+        this.antsAiList = antsAiList;
     }
 
     @Override
@@ -58,5 +62,14 @@ public class AntsGame extends Game {
         {
             ((AntsPlayer)getPlayer(hive.getPlayerId())).getHives().add(hive);
         }
+    }
+
+    public List<AntsAi> getAntsAiList() {
+        return antsAiList;
+    }
+
+    public AntsAi getAntsAiByPlayerId(int playerId)
+    {
+        return this.antsAiList.get(playerId);
     }
 }
