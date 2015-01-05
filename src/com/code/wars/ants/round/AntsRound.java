@@ -21,19 +21,33 @@ public class AntsRound implements Round {
         AntsBoard antsBoard = (AntsBoard) antsGame.getBoard();
         for (Player player : antsGame.getPlayers())
         {
+            System.out.println("Player " + player.getPlayerId() + " : ");
+            long timestamp = System.currentTimeMillis();
             ((AntsPlayer) player).setLastMovement(antsGame.getAntsAiByPlayerId(player.getPlayerId()).onTurnStarted(antsBoard.getAntsForPlayerId(player.getPlayerId())));
+            System.out.println("Player " + player.getPlayerId() + " finished in " + (System.currentTimeMillis() - timestamp) + " millis");
         }
 
+        System.out.println("Move Phase : ");
         Phase phase = new MovePhase();
         phase.executePhase(game);
+
+        System.out.println("Battle Resolution Phase : ");
         phase = new BattleResolutionPhase();
         phase.executePhase(game);
+
+        System.out.println("Hive Raising Phase : ");
         phase = new HillRazingPhase();
         phase.executePhase(game);
+
+        System.out.println("Food Gathering Phase : ");
         phase = new FoodGatheringPhase();
         phase.executePhase(game);
+
+        System.out.println("Ant Spawning Phase : ");
         phase = new AntSpawningPhase();
         phase.executePhase(game);
+
+        System.out.println("Food Spawning Phase");
         phase = new FoodSpawningPhase();
         phase.executePhase(game);
 

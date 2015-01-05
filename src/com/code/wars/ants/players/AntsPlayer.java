@@ -39,4 +39,12 @@ public class AntsPlayer extends Player {
     public void setLastMovement(Map<Integer, Direction> lastMovement) {
         this.lastMovement = lastMovement;
     }
+
+    public void addFoodSupply(int delta)
+    {
+        if (this.hives != null && this.hives.size() > 0)
+        {
+            this.hives.get(0).addFoodSupply(delta);
+        }
+    }
 }

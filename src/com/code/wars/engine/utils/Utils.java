@@ -1,5 +1,6 @@
 package com.code.wars.engine.utils;
 
+import com.code.wars.engine.board.Board;
 import com.code.wars.engine.board.Direction;
 import com.code.wars.engine.board.Point;
 
@@ -33,6 +34,19 @@ public class Utils {
             }
         }
         return null;
+    }
+
+    public static boolean isPointValid(Board board, Point point)
+    {
+        if (point.getRow() < 0
+                || point.getColumn() < 0
+                || point.getRow() >= board.getRowsCount()
+                || point.getColumn() >= board.getColumnsCount()
+                || board.getBoardMatrix()[point.getRow()][point.getColumn()].hasObstacle())
+        {
+            return false;
+        }
+        return true;
     }
 
 }

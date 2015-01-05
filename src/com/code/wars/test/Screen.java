@@ -3,6 +3,9 @@ package com.code.wars.test;
 import com.code.wars.ants.game.AntsGame;
 import com.code.wars.ants.units.HiveUnit;
 import com.code.wars.ants.units.AntUnit;
+import com.code.wars.engine.units.ExpendableUnit;
+import com.code.wars.engine.units.ObstacleUnit;
+import com.code.wars.engine.units.PlayableUnit;
 import com.code.wars.engine.units.Unit;
 
 import javax.swing.*;
@@ -40,14 +43,14 @@ public class Screen extends JPanel{
         {
             for (int j=0; j < game.getBoard().getColumnsCount(); j++)
             {
-                java.util.List<Unit> obstacleUnits = game.getBoard().getBoardMatrix()[i][j].getObstacleUnits();
+                java.util.List<ObstacleUnit> obstacleUnits = game.getBoard().getBoardMatrix()[i][j].getObstacleUnits();
                 if (obstacleUnits != null && obstacleUnits.size() != 0)
                 {
                     g.setColor(Color.BLUE);
                     g.fillRect(j * unitSize, i * unitSize, unitSize, unitSize);
                 }
                 else {
-                    List<Unit> playableUnits = game.getBoard().getBoardMatrix()[i][j].getPlayableUnits();
+                    List<PlayableUnit> playableUnits = game.getBoard().getBoardMatrix()[i][j].getPlayableUnits();
                     if (playableUnits != null && playableUnits.size() != 0)
                     {
                         HiveUnit hiveUnit = null;
@@ -88,7 +91,7 @@ public class Screen extends JPanel{
                             g.fillOval(j * unitSize, i * unitSize, unitSize, unitSize);
                         }
                     } else {
-                        java.util.List<Unit> expendableUnits = game.getBoard().getBoardMatrix()[i][j].getExpendableUnits();
+                        java.util.List<ExpendableUnit> expendableUnits = game.getBoard().getBoardMatrix()[i][j].getExpendableUnits();
                         if (expendableUnits != null && expendableUnits.size() != 0) {
                             g.setColor(Color.DARK_GRAY);
                             g.fillRect(j * unitSize, i * unitSize, unitSize, unitSize);

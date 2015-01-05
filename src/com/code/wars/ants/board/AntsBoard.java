@@ -1,5 +1,6 @@
 package com.code.wars.ants.board;
 
+import com.code.wars.ants.players.AntsPlayer;
 import com.code.wars.ants.units.Ant;
 import com.code.wars.engine.board.Direction;
 import com.code.wars.engine.board.Point;
@@ -7,7 +8,10 @@ import com.code.wars.ants.units.AntUnit;
 import com.code.wars.ants.units.HiveUnit;
 import com.code.wars.engine.board.Board;
 import com.code.wars.engine.board.Tile;
+import com.code.wars.engine.game.Game;
+import com.code.wars.engine.units.ExpendableUnit;
 import com.code.wars.engine.units.ObstacleUnit;
+import com.code.wars.engine.units.PlayableUnit;
 import com.code.wars.engine.units.Unit;
 import com.code.wars.engine.utils.Utils;
 
@@ -105,7 +109,7 @@ public class AntsBoard extends Board {
     public AntUnit getAntUnit(Point point)
     {
         AntUnit antUnit = null;
-        List<Unit> playableUnits = getBoardMatrix()[point.getRow()][point.getColumn()].getPlayableUnits();
+        List<PlayableUnit> playableUnits = getBoardMatrix()[point.getRow()][point.getColumn()].getPlayableUnits();
         if (playableUnits != null && playableUnits.size() != 0)
         {
             for (Unit unit : playableUnits)
@@ -131,9 +135,28 @@ public class AntsBoard extends Board {
         AntUnit antUnit = this.antsMap.get(antId);
         if (antUnit != null)
         {
+            Point newPosition = Utils.getNewPosition(antUnit.getPosition(), direction);
+            if (Utils.isPointValid(this, newPosition))
+            {
+                this.boardMatrix[antUnit.getPosition().getRow()][antUnit.getPosition().getColumn()].removeUnit(antUnit.getUnitId());
+                antUnit.setPosition(newPosition);
+                this.boardMatrix[antUnit.getPosition().getRow()][antUnit.getPosition().getColumn()].addUnit(antUnit);
+            }
+            else
+            {
+                System.out.println("Move invalid to position: " + newPosition.toString());
+            }
+        }
+    }
+
+    public void removeAnt(int antId)
+    {
+        AntUnit antUnit = this.antsMap.get(antId);
+        if (antUnit != null)
+        {
             this.boardMatrix[antUnit.getPosition().getRow()][antUnit.getPosition().getColumn()].removeUnit(antUnit.getUnitId());
-            antUnit.setPosition(Utils.getNewPosition(antUnit.getPosition(), direction));
-            this.boardMatrix[antUnit.getPosition().getRow()][antUnit.getPosition().getColumn()].addUnit(antUnit);
+            this.antsMap.remove(antId);
+            System.out.println("Removed Ant: " + antUnit.toString());
         }
     }
 
@@ -148,6 +171,84 @@ public class AntsBoard extends Board {
             }
         }
         return ants;
+    }
+
+    public void resolveCollisions()
+    {
+        for (int i=0; i < this.getRowsCount(); i++)
+        {
+            for (int j=0; j < this.getColumnsCount(); j++)
+            {
+                Tile tile = this.boardMatrix[i][j];
+                List<PlayableUnit> playableUnits = tile.getPlayableUnits();
+                if (playableUnits != null)
+                {
+                    List<Integer> antIds = new ArrayList<Integer>();
+                    for (PlayableUnit playableUnit : playableUnits)
+                    {
+                        if (playableUnit instanceof AntUnit)
+                        {
+                            antIds.add(playableUnit.getUnitId());
+                        }
+                    }
+                    if (antIds.size() > 1)
+                    {
+                        System.out.println("Ant collision detected removed " + antIds.size());
+                        for (Integer antId : antIds)
+                        {
+                            removeAnt(antId);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void gatherFood(Game game)
+    {
+        for (int i=0; i < this.getRowsCount(); i++)
+        {
+            for (int j = 0; j < this.getColumnsCount(); j++)
+            {
+                Tile tile = this.boardMatrix[i][j];
+                List<PlayableUnit> playableUnits = tile.getPlayableUnits();
+                AntUnit antUnit = null;
+                if (playableUnits != null)
+                {
+                    for (PlayableUnit playableUnit : playableUnits)
+                    {
+                        if (playableUnit instanceof AntUnit)
+                        {
+                            antUnit = (AntUnit) playableUnit;
+                        }
+                    }
+                }
+
+                if (antUnit != null)
+                {
+                    Point position = antUnit.getPosition();
+                    List<Integer> unitIds = new ArrayList<Integer>();
+                    List<ExpendableUnit> expendableUnits = tile.getExpendableUnits();
+                    if (expendableUnits != null)
+                    {
+                        for (ExpendableUnit expendableUnit : expendableUnits)
+                        {
+                            unitIds.add(expendableUnit.getUnitId());
+                        }
+                        if (unitIds.size() > 0)
+                        {
+                            for (Integer unitId : unitIds)
+                            {
+                                AntsPlayer antsPlayer = (AntsPlayer) game.getPlayer(antUnit.getPlayerId());
+                                antsPlayer.addFoodSupply(1);
+                                System.out.println("Food Gathered for player : " + antsPlayer.getPlayerId() + " at position : " + position);
+                                this.boardMatrix[position.getRow()][position.getColumn()].removeUnit(unitId);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public List<HiveUnit> getHives()

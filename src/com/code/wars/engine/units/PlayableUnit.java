@@ -45,4 +45,11 @@ public class PlayableUnit extends Unit{
         this.playerId = playerId;
     }
 
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer("PlayableUnit");
+        stringBuffer.append("(PlayerId = ").append(this.playerId).append(", UnitId = ").append(this.getUnitId()).append(", ").append(this.getPosition().toString()).append(')');
+        return stringBuffer.toString();
+    }
+
 }

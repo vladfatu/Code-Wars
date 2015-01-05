@@ -46,54 +46,61 @@ public class Tile {
 
     }
 
-    public List<Unit> getExpendableUnits()
+    public List<ExpendableUnit> getExpendableUnits()
     {
         if (this.units == null)
         {
             return null;
         }
-        List<Unit> expendableUnits = new ArrayList<Unit>();
+        List<ExpendableUnit> expendableUnits = new ArrayList<ExpendableUnit>();
         for (Unit unit : this.units)
         {
             if (unit instanceof ExpendableUnit)
             {
-                expendableUnits.add(unit);
+                expendableUnits.add((ExpendableUnit)unit);
             }
         }
         return expendableUnits;
     }
 
-    public List<Unit> getPlayableUnits()
+    public List<PlayableUnit> getPlayableUnits()
     {
         if (this.units == null)
         {
             return null;
         }
-        List<Unit> playableUnits = new ArrayList<Unit>();
+        List<PlayableUnit> playableUnits = new ArrayList<PlayableUnit>();
         for (Unit unit : this.units)
         {
             if (unit instanceof PlayableUnit)
             {
-                playableUnits.add(unit);
+                playableUnits.add((PlayableUnit)unit);
             }
         }
         return playableUnits;
     }
 
-    public List<Unit> getObstacleUnits()
+    public List<ObstacleUnit> getObstacleUnits()
     {
         if (this.units == null)
         {
             return null;
         }
-        List<Unit> obstacleUnits = new ArrayList<Unit>();
+        List<ObstacleUnit> obstacleUnits = new ArrayList<ObstacleUnit>();
         for (Unit unit : this.units)
         {
             if (unit instanceof ObstacleUnit)
             {
-                obstacleUnits.add(unit);
+                obstacleUnits.add((ObstacleUnit)unit);
             }
         }
         return obstacleUnits;
     }
+
+    public boolean hasObstacle()
+    {
+        List<ObstacleUnit> obstacleUnits = getObstacleUnits();
+        return (obstacleUnits != null && obstacleUnits.size() > 0);
+    }
+
 }

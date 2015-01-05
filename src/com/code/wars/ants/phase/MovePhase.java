@@ -30,6 +30,7 @@ public class MovePhase implements Phase {
                 }
             }
         }
+        antsBoard.resolveCollisions();
     }
 
 }
