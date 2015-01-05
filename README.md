@@ -1,2 +1,2 @@
-Coder-Wars
-==========
+Code-Wars
+=========
