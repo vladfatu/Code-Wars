@@ -8,21 +8,30 @@ import com.coder.wars.engine.units.Order;
  */
 public class Ant {
 
-    private AntUnit antUnit;
+    private Point position;
+    private int playerId;
+    private int antId;
+
+    public Ant(AntUnit antUnit)
+    {
+        this.antId = antUnit.getUnitId();
+        this.playerId = antUnit.getPlayerId();
+        this.position = antUnit.getPosition();
+    }
 
     public Point getPosition()
     {
-        return this.antUnit.getPosition();
+        return this.position;
     }
 
     public int getPlayerId()
     {
-        return this.antUnit.getPlayerId();
+        return this.playerId;
     }
 
     public int getAntId()
     {
-        return this.antUnit.getUnitId();
+        return this.antId;
     }
 
 }

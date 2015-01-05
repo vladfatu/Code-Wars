@@ -1,5 +1,6 @@
 package com.coder.wars.ants.round;
 
+import com.coder.wars.ants.board.AntsBoard;
 import com.coder.wars.ants.game.AntsGame;
 import com.coder.wars.ants.phase.*;
 import com.coder.wars.ants.players.AntsPlayer;
@@ -17,9 +18,10 @@ public class AntsRound implements Round {
     public void executeRound(Game game) {
 
         AntsGame antsGame = (AntsGame) game;
+        AntsBoard antsBoard = (AntsBoard) antsGame.getBoard();
         for (Player player : antsGame.getPlayers())
         {
-            ((AntsPlayer) player).setLastMovement(antsGame.getAntsAiByPlayerId(player.getPlayerId()).onTurnStarted());
+            ((AntsPlayer) player).setLastMovement(antsGame.getAntsAiByPlayerId(player.getPlayerId()).onTurnStarted(antsBoard.getAntsForPlayerId(player.getPlayerId())));
         }
 
         Phase phase = new MovePhase();

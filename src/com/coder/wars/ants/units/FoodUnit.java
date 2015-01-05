@@ -8,7 +8,7 @@ import com.coder.wars.engine.units.ExpendableUnit;
  */
 public class FoodUnit extends ExpendableUnit{
 
-    public FoodUnit(int unitId, Point position, int value) {
-        super(unitId, position, value);
+    public FoodUnit(Point position, int value) {
+        super(position, value);
     }
 }

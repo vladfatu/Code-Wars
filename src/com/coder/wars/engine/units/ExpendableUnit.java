@@ -9,9 +9,9 @@ public class ExpendableUnit extends Unit{
 
     private int value;
 
-    public ExpendableUnit(int unitId, Point position, int value)
+    public ExpendableUnit(Point position, int value)
     {
-        super(unitId, position);
+        super(position);
         this.value = value;
     }
 

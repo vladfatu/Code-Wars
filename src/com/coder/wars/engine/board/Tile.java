@@ -6,6 +6,7 @@ import com.coder.wars.engine.units.PlayableUnit;
 import com.coder.wars.engine.units.Unit;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,6 +26,24 @@ public class Tile {
             this.units = new ArrayList<Unit>();
         }
         this.units.add(unit);
+    }
+
+    public void removeUnit(int unitId)
+    {
+        if (this.units == null)
+        {
+            this.units = new ArrayList<Unit>();
+        }
+
+        Iterator<Unit> unitsIterator = this.units.iterator();
+        while (unitsIterator.hasNext())
+        {
+            if (unitsIterator.next().getUnitId() == unitId)
+            {
+                unitsIterator.remove();
+            }
+        }
+
     }
 
     public List<Unit> getExpendableUnits()

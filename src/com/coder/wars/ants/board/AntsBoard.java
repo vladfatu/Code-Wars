@@ -1,21 +1,26 @@
 package com.coder.wars.ants.board;
 
+import com.coder.wars.ants.units.Ant;
 import com.coder.wars.ants.units.AntUnit;
 import com.coder.wars.ants.units.HiveUnit;
 import com.coder.wars.engine.board.Board;
+import com.coder.wars.engine.board.Direction;
 import com.coder.wars.engine.board.Point;
 import com.coder.wars.engine.board.Tile;
 import com.coder.wars.engine.units.ExpendableUnit;
 import com.coder.wars.engine.units.ObstacleUnit;
 import com.coder.wars.engine.units.PlayableUnit;
 import com.coder.wars.engine.units.Unit;
+import com.coder.wars.engine.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by vlad on 24.12.2014.
@@ -24,9 +29,12 @@ public class AntsBoard extends Board {
 
     private List<HiveUnit> hives;
 
+    private Map<Integer, AntUnit> antsMap;
+
     public AntsBoard()
     {
         this.hives = new ArrayList<HiveUnit>();
+        this.antsMap = new HashMap<Integer, AntUnit>();
     }
 
     @Override
@@ -69,11 +77,11 @@ public class AntsBoard extends Board {
                     this.boardMatrix[row][i] = tile;
                     if (currentLine.charAt(i) == '%')
                     {
-                        tile.addUnit(new ObstacleUnit(0, new Point(row, i)));
+                        tile.addUnit(new ObstacleUnit(new Point(row, i)));
                     }
                     else if (currentLine.charAt(i) != '.')
                     {
-                        HiveUnit hiveUnit = new HiveUnit(0, Character.getNumericValue(currentLine.charAt(i)), new Point(row, i));
+                        HiveUnit hiveUnit = new HiveUnit(Character.getNumericValue(currentLine.charAt(i)), new Point(row, i));
                         tile.addUnit(hiveUnit);
                         this.hives.add(hiveUnit);
                     }
@@ -114,13 +122,40 @@ public class AntsBoard extends Board {
         return antUnit;
     }
 
+    public void addAnt(int playerId, Point position)
+    {
+        AntUnit antUnit = new AntUnit(playerId, position);
+        this.antsMap.put(antUnit.getUnitId(), antUnit);
+        this.boardMatrix[position.getRow()][position.getColumn()].addUnit(antUnit);
+    }
+
+    public void moveAnt(int antId, Direction direction)
+    {
+        AntUnit antUnit = this.antsMap.get(antId);
+        if (antUnit != null)
+        {
+            this.boardMatrix[antUnit.getPosition().getRow()][antUnit.getPosition().getColumn()].removeUnit(antUnit.getUnitId());
+            antUnit.setPosition(Utils.getNewPosition(antUnit.getPosition(), direction));
+            this.boardMatrix[antUnit.getPosition().getRow()][antUnit.getPosition().getColumn()].addUnit(antUnit);
+        }
+    }
+
+    public List<Ant> getAntsForPlayerId(int playerId)
+    {
+        List<Ant> ants = new ArrayList<Ant>();
+        for (AntUnit antUnit : this.antsMap.values())
+        {
+            if (antUnit.getPlayerId() == playerId)
+            {
+                ants.add(new Ant(antUnit));
+            }
+        }
+        return ants;
+    }
+
     public List<HiveUnit> getHives()
     {
         return hives;
     }
 
-    public void setHives(List<HiveUnit> hives)
-    {
-        this.hives = hives;
-    }
 }

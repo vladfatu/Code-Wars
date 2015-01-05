@@ -7,7 +7,7 @@ import com.coder.wars.engine.board.Point;
  */
 public class ObstacleUnit extends Unit {
 
-    public ObstacleUnit(int unitId, Point position) {
-        super(unitId, position);
+    public ObstacleUnit(Point position) {
+        super(position);
     }
 }

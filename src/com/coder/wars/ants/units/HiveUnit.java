@@ -10,9 +10,9 @@ public class HiveUnit extends PlayableUnit {
 
     private int foodSupply;
 
-    public HiveUnit(int unitId, int playerId, Point position)
+    public HiveUnit(int playerId, Point position)
     {
-        super(unitId, playerId, position);
+        super(playerId, position);
         this.foodSupply = 5;
     }
 

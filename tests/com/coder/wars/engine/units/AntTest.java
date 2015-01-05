@@ -8,7 +8,7 @@ public class AntTest {
     @Test
     public void testGet0()
     {
-        Ant ant = new Ant();
+//        Ant ant = new Ant();
     }
 
 }

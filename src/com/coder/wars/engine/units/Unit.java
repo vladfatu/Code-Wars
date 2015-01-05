@@ -9,9 +9,12 @@ public class Unit {
 
     private Point position;
     private int unitId;
+    private static int lastId;
 
-    public Unit(int unitId, Point position)
+    public Unit(Point position)
     {
+        lastId++;
+        this.unitId = lastId;
         this.position = position;
     }
 
@@ -27,7 +30,4 @@ public class Unit {
         return unitId;
     }
 
-    public void setUnitId(int unitId) {
-        this.unitId = unitId;
-    }
 }
