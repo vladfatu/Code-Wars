@@ -9,11 +9,23 @@ import com.code.wars.engine.units.PlayableUnit;
 public class HiveUnit extends PlayableUnit {
 
     private int foodSupply;
+    private boolean isActive;
 
     public HiveUnit(int playerId, Point position)
     {
         super(playerId, position);
         this.foodSupply = 5;
+        this.isActive = true;
+    }
+
+    public boolean isActive()
+    {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive)
+    {
+        this.isActive = isActive;
     }
 
     public int getFoodSupply()

@@ -1,7 +1,7 @@
 package com.code.wars.ants.board;
 
 import com.code.wars.ants.players.AntsPlayer;
-import com.code.wars.ants.units.Ant;
+import com.code.wars.ants.gameState.Ant;
 import com.code.wars.engine.board.Direction;
 import com.code.wars.engine.board.Point;
 import com.code.wars.ants.units.AntUnit;
@@ -249,6 +249,36 @@ public class AntsBoard extends Board {
                 }
             }
         }
+    }
+
+    public com.code.wars.ants.gameState.Tile[][] getTileMatrixForPlayer(int playerId)
+    {
+        int visionDepth = 5;
+        com.code.wars.ants.gameState.Tile[][] tileMatrix = new com.code.wars.ants.gameState.Tile[getRowsCount()][getColumnsCount()];
+
+        for (Ant ant : getAntsForPlayerId(playerId))
+        {
+            int row = ant.getPosition().getRow();
+            int column = ant.getPosition().getColumn();
+
+            int startingRow = Math.max(0, row - visionDepth);
+            int startingColumn = Math.max(0, column - visionDepth);
+            int lastRow = Math.min(getRowsCount() - 1, row + visionDepth);
+            int lastColumn = Math.min(getColumnsCount() - 1, column + visionDepth);
+
+            for (int i=startingRow;i<=lastRow;i++)
+            {
+                for (int j=startingColumn;j<=lastColumn;j++)
+                {
+                    if (tileMatrix[i][j] == null)
+                    {
+                        tileMatrix[i][j] = new com.code.wars.ants.gameState.Tile(boardMatrix[i][j]);
+                    }
+                }
+            }
+        }
+
+        return tileMatrix;
     }
 
     public List<HiveUnit> getHives()

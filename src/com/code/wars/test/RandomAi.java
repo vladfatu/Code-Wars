@@ -1,7 +1,9 @@
 package com.code.wars.test;
 
 import com.code.wars.ants.ai.AntsAi;
-import com.code.wars.ants.units.Ant;
+import com.code.wars.ants.gameState.Ant;
+import com.code.wars.ants.gameState.GameState;
+import com.code.wars.ants.gameState.Hive;
 import com.code.wars.engine.board.Direction;
 
 import java.util.HashMap;
@@ -14,10 +16,11 @@ import java.util.Random;
  */
 public class RandomAi implements AntsAi {
     @Override
-    public Map<Integer, Direction> onTurnStarted(List<Ant> ants)
+    public Map<Integer, Direction> onTurnStarted(GameState gameState, List<Hive> yourHives, List<Ant> yourAnts)
     {
+//        gameState.prettyPrint();
         Map<Integer, Direction> antsMap = new HashMap<Integer, Direction>();
-        for (Ant ant : ants)
+        for (Ant ant : yourAnts)
         {
             antsMap.put(ant.getAntId(), getRandomDirection());
         }

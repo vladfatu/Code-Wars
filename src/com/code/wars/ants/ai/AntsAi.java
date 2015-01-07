@@ -1,6 +1,8 @@
 package com.code.wars.ants.ai;
 
-import com.code.wars.ants.units.Ant;
+import com.code.wars.ants.gameState.Ant;
+import com.code.wars.ants.gameState.GameState;
+import com.code.wars.ants.gameState.Hive;
 import com.code.wars.engine.board.Direction;
 
 import java.util.List;
@@ -11,6 +13,6 @@ import java.util.Map;
  */
 public interface AntsAi {
 
-    public Map<Integer, Direction> onTurnStarted(List<Ant> ants);
+    public Map<Integer, Direction> onTurnStarted(GameState gameState, List<Hive> yourHives, List<Ant> yourAnts);
 
 }

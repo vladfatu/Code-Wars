@@ -1,5 +1,6 @@
-package com.code.wars.ants.units;
+package com.code.wars.ants.gameState;
 
+import com.code.wars.ants.units.AntUnit;
 import com.code.wars.engine.board.Point;
 
 /**
