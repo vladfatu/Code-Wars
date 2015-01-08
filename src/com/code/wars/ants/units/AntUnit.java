@@ -8,8 +8,21 @@ import com.code.wars.engine.units.PlayableUnit;
  */
 public class AntUnit extends PlayableUnit {
 
+    private boolean markedForKill;
+
     public AntUnit(int playerId, Point position) {
         super(playerId, position);
+        this.markedForKill = false;
+    }
+
+    public void markForKill()
+    {
+        this.markedForKill = true;
+    }
+
+    public boolean isMarkedForKill()
+    {
+        return  markedForKill;
     }
 
 }

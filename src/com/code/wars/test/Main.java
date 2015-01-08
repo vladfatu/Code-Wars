@@ -17,7 +17,8 @@ public class Main {
     {
         System.out.println("Hello World!");
         AntsBoard board = new AntsBoard();
-        board.readFromMap("maps/maze_map_01.map");
+//        board.readFromMap("maps/maze_map_01.map");
+        board.readFromMap("maps/battle_tutorial.map");
 
         List<AntsAi> antsAiList = new ArrayList<AntsAi>();
         AntsAi ai = new RandomAi();

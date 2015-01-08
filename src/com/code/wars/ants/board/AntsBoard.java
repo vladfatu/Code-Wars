@@ -204,6 +204,22 @@ public class AntsBoard extends Board {
         }
     }
 
+    public void resolveKills()
+    {
+        List<Integer> antsToKillIds = new ArrayList<Integer>();
+        for (AntUnit antUnit : this.antsMap.values())
+        {
+            if (antUnit.isMarkedForKill())
+            {
+                antsToKillIds.add(antUnit.getUnitId());
+            }
+        }
+        for (Integer unitId : antsToKillIds)
+        {
+            removeAnt(unitId);
+        }
+    }
+
     public void gatherFood(Game game)
     {
         for (int i=0; i < this.getRowsCount(); i++)
