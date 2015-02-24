@@ -19,14 +19,17 @@ public class Screen extends JPanel{
 
     private AntsGame game;
     private int unitSize;
-    private Image image;
+    private Image openedHiveImage;
+    private Image closedHiveImage;
 
     public Screen(AntsGame game, int scale)
     {
         this.game = game;
         this.unitSize = scale;
-        image = Toolkit.getDefaultToolkit().getImage("res/hive_open.png");
-        image = image.getScaledInstance(unitSize * 4, unitSize * 4, 0);
+        openedHiveImage = Toolkit.getDefaultToolkit().getImage("res/hive_open.png");
+        openedHiveImage = openedHiveImage.getScaledInstance(unitSize * 4, unitSize * 4, 0);
+        closedHiveImage = Toolkit.getDefaultToolkit().getImage("res/hive_closed.png");
+        closedHiveImage = closedHiveImage.getScaledInstance(unitSize * 4, unitSize * 4, 0);
         repaint();
     }
 
@@ -63,7 +66,14 @@ public class Screen extends JPanel{
                         }
                         if (hiveUnit != null)
                         {
-                            g.drawImage(image, j * unitSize  - (image.getWidth(this)/2) + (unitSize/2), i * unitSize - (image.getHeight(this)/2) + (unitSize/2), this);
+                            if (hiveUnit.isActive())
+                            {
+                                g.drawImage(openedHiveImage, j * unitSize - (openedHiveImage.getWidth(this) / 2) + (unitSize / 2), i * unitSize - (openedHiveImage.getHeight(this) / 2) + (unitSize / 2), this);
+                            }
+                            else
+                            {
+                                g.drawImage(closedHiveImage, j * unitSize - (closedHiveImage.getWidth(this) / 2) + (unitSize / 2), i * unitSize - (closedHiveImage.getHeight(this) / 2) + (unitSize / 2), this);
+                            }
                         }
                         AntUnit antUnit = null;
                         for (Unit unit : playableUnits)

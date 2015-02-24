@@ -20,7 +20,7 @@ public class AntSpawningPhase implements Phase {
         for (HiveUnit hive : antsBoard.getHives())
         {
             Point position = hive.getPosition();
-            if (hive.getFoodSupply() > 0 && antsBoard.getAntUnit(position) == null)
+            if (hive.isActive() && hive.getFoodSupply() > 0 && antsBoard.getAntUnit(position) == null)
             {
                 antsBoard.addAnt(hive.getPlayerId(), position);
                 hive.decreaseFoodSupply(1);

@@ -5,6 +5,6 @@ package com.code.wars.engine.board;
  */
 public enum Direction {
 
-    SOUTH, NORTH, EST, WEST
+    SOUTH, NORTH, EAST, WEST
 
 }

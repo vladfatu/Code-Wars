@@ -28,4 +28,26 @@ public class Point {
         stringBuffer.append('(').append(this.column).append(", ").append(this.row).append(')');
         return stringBuffer.toString();
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Point point = (Point) o;
+
+        if (column != point.column) return false;
+        if (row != point.row) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = column;
+        result = 31 * result + row;
+        return result;
+    }
 }

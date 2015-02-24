@@ -34,7 +34,7 @@ public class RandomAi implements AntsAi {
         {
             case 0:
             {
-                return Direction.EST;
+                return Direction.EAST;
             }
             case 1:
             {

@@ -15,21 +15,21 @@ public class Utils {
         {
             switch (direction)
             {
-                case EST:
-                {
-                    return new Point(oldPosition.getRow(), oldPosition.getColumn() - 1);
-                }
-                case WEST:
+                case EAST:
                 {
                     return new Point(oldPosition.getRow(), oldPosition.getColumn() + 1);
                 }
+                case WEST:
+                {
+                    return new Point(oldPosition.getRow(), oldPosition.getColumn() - 1);
+                }
                 case SOUTH:
                 {
-                    return new Point(oldPosition.getRow() - 1, oldPosition.getColumn());
+                    return new Point(oldPosition.getRow() + 1, oldPosition.getColumn());
                 }
                 case NORTH:
                 {
-                    return new Point(oldPosition.getRow() + 1, oldPosition.getColumn());
+                    return new Point(oldPosition.getRow() - 1, oldPosition.getColumn());
                 }
             }
         }
