@@ -15,6 +15,9 @@ public class AStarNode {
     private int rowSize;
     private int columnSize;
     private boolean isValid;
+    private int score;
+    private int estimatedScore;
+    private AStarNode parent;
 
     public  AStarNode(Point position, int rowSize, int columnSize)
     {
@@ -92,4 +95,33 @@ public class AStarNode {
         this.position = position;
     }
 
+    public int getScore()
+    {
+        return score;
+    }
+
+    public void setScore(int score)
+    {
+        this.score = score;
+    }
+
+    public AStarNode getParent()
+    {
+        return parent;
+    }
+
+    public void setParent(AStarNode parent)
+    {
+        this.parent = parent;
+    }
+
+    public int getEstimatedScore()
+    {
+        return estimatedScore;
+    }
+
+    public void setEstimatedScore(int estimatedScore)
+    {
+        this.estimatedScore = estimatedScore;
+    }
 }
